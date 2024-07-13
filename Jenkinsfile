@@ -32,7 +32,7 @@ pipeline {
                 script{
                     sh '''
                     echo 'Push to Repo'
-                    docker push somisetty/python-pipeline:1
+                    docker push somisetty/python-pipeline:${BUILD_NUMBER}
                     '''
                 }
             }
