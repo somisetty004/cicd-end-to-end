@@ -3,7 +3,7 @@ pipeline {
     agent any 
     
     environment {
-        IMAGE_TAG = "${BUILD_NUMBER}"
+        DOCKERHUB_CREDENTIALS = credentials('somisetty-dockerhub')
     }
     
     stages {
@@ -21,7 +21,7 @@ pipeline {
                 script{
                     sh '''
                     echo 'Buid Docker Image'
-                    docker build -t somisetty/python-pipeline:${BUILD_NUMBER} .
+                    docker build -t somisetty/python-pipeline:latest .
                     '''
                 }
             }
@@ -32,7 +32,7 @@ pipeline {
                 script{
                     sh '''
                     echo 'Push to Repo'
-                    docker push somisetty/python-pipeline:${BUILD_NUMBER}
+                    docker push somisetty/python-pipeline:latest
                     '''
                 }
             }
