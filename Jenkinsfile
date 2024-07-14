@@ -31,10 +31,11 @@ pipeline {
                 script{
                     docker.with registry( '', registrycredentials ) {
                     dockerimage.push()
-                 }
-             }
-         }
-      }      
+                    }
+                }
+           }
+        }
     }
- } 
+}
+
     
