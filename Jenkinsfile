@@ -29,7 +29,7 @@ pipeline {
         stage('Push the artifacts'){
            steps{
                 script{
-                    docker.with registry( '', registrycredentials ) {
+                    docker.withregistry( '', registrycredentials ) {
                     dockerimage.push()
                     }
                 }
