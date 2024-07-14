@@ -21,10 +21,7 @@ pipeline {
         stage('Build Docker'){
             steps{
                 script{
-                    sh '''
-                    echo 'Buid Docker Image'
-                    docker build -t somisetty/python-pipeline:latest .
-                    '''
+                    dockerimage = docker.build registry
                 }
             }
         }
@@ -32,10 +29,8 @@ pipeline {
         stage('Push the artifacts'){
            steps{
                 script{
-                    sh '''
-                    echo 'Push to Repo'
-                    docker push somisetty/python-pipeline:latest
-                    '''
+                    docker.with registry( '', registrycredentials ) {
+                    dockerimage.push()
                 }
             }
         }
