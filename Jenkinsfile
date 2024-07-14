@@ -3,6 +3,7 @@ pipeline {
     agent any 
     
     environment {
+        registry = 'somisetty/python-pipeline'
         DOCKERHUB_CREDENTIALS = credentials('somisetty-dockerhub')
     }
     
