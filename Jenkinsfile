@@ -3,7 +3,7 @@ pipeline {
     agent any 
     
     environment {
-        dockerimage = ''
+        IMAGE_TAG = "${BUILD_NUMBER}"
         registry = 'somisetty/python-pipeline'
         registrycredentials = 'somisetty-dockerhub'
     }
@@ -21,7 +21,10 @@ pipeline {
         stage('Build Docker'){
             steps{
                 script{
-                    dockerimage = docker.build registry
+                    sh '''
+                    echo 'Buid Docker Image'
+                    docker build -t somisetty/python-pipeline:${BUILD_NUMBER} .
+                    '''
                 }
             }
         }
@@ -29,9 +32,10 @@ pipeline {
         stage('Push the artifacts'){
            steps{
                 script{
-                    docker.withregistry( '', registrycredentials ) {
-                    dockerimage.push()
-                    }
+                    sh '''
+                    echo 'Push to Repo'
+                    docker push somisetty/python-pipeline:${BUILD_NUMBER}
+                    '''
                 }
            }
         }
